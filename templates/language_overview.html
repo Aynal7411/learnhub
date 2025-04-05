@@ -1,0 +1,43 @@
+<!-- templates/content/language_overview.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ language }} Tutorials - LearnHub{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold mb-4">{{ language }} Tutorials</h1>
+    <p class="text-lg mb-4">We have {{ tutorial_count }} free {{ language }} tutorials available.</p>
+    <a href="{% url 'language_tutorials' language_code %}" class="inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+        Browse All {{ language }} Tutorials
+    </a>
+</div>
+
+{% if categories %}
+<div class="mb-12">
+    <h2 class="text-2xl font-bold mb-6">Categories</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {% for category in categories %}
+        <a href="{% url 'category_tutorials' category.slug %}?language={{ language_code }}" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+            <h3 class="font-bold text-lg">{{ category.name }}</h3>
+            <p class="text-sm text-gray-600">{{ category.description|truncatewords:10 }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div>
+    <h2 class="text-2xl font-bold mb-6">Recently Added</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {% for tutorial in recent_tutorials %}
+        <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+            <h3 class="text-xl font-bold mb-2">
+                <a href="{% url 'tutorial_detail' tutorial.slug %}" class="hover:underline">{{ tutorial.title }}</a>
+            </h3>
+            <p class="text-gray-600 mb-4">{{ tutorial.content|truncatewords:30 }}</p>
+            <a href="{% url 'tutorial_detail' tutorial.slug %}" class="text-blue-600 hover:underline">Read more →</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

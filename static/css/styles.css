@@ -1,0 +1,202 @@
+/* Custom CSS for enhanced styling and hover effects */
+
+/* Base styles */
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    background-color: #5997ce;
+    color: lch(5.73% 1.28 129.46);
+    margin: 0%;
+    padding: 0%;
+    box-sizing: content-box;
+    overflow: hidden;
+    font-size: 16px;
+    text-align: center;
+    min-height: auto;
+    max-height: 200vh;
+    overflow-y: auto;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+
+}
+
+/* Header hover effects */
+nav ul li a {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #dbeafe;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #dbeafe;
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/* Card hover effects */
+.tutorial-card {
+    transition: all 0.3s ease;
+    transform: translateY(0);
+}
+
+.tutorial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Button hover effects */
+.btn-primary {
+    transition: all 0.3s ease;
+    transform: scale(1);
+}
+
+.btn-primary:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* Language tag colors */
+.tag-js { background-color: #f7df1e; color: #000; }
+.tag-py { background-color: #3776ab; color: #fff; }
+.tag-html { background-color: #e34c26; color: #fff; }
+.tag-css { background-color: #2965f1; color: #fff; }
+
+.tag-js:hover { background-color: #f0d91c; }
+.tag-py:hover { background-color: #2d618f; }
+.tag-html:hover { background-color: #d1411d; }
+.tag-css:hover { background-color: #1e56d1; }
+
+/* Smooth transitions for all interactive elements */
+a, button, .transition-all {
+    transition: all 0.3s ease;
+}
+
+/* Pulse animation for featured items */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+.featured-tutorial {
+    animation: pulse 4s infinite;
+}
+
+.featured-tutorial:hover {
+    animation: none;
+}
+
+/* Gradient background for hero section */
+.hero-gradient {
+    background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b82f6;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #2563eb;
+}
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Footer Styles */
+.footer-col {
+    transition: all 0.3s ease;
+}
+
+.footer-col:hover {
+    transform: translateY(-5px);
+}
+
+.social-icons a {
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.2);
+}
+
+.footer-links a {
+    position: relative;
+}
+
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: white;
+    transition: width 0.3s ease;
+}
+
+.footer-links a:hover::after {
+    width: 100%;
+}
+
+/* Newsletter form button hover effect */
+form button {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+form button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%, -50%);
+    transform-origin: 50% 50%;
+}
+
+form button:hover::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(20, 20);
+        opacity: 0;
+    }
+}

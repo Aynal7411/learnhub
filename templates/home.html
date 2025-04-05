@@ -1,0 +1,58 @@
+<!-- templates/content/home.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="mb-12">
+    <h2 class="text-2xl font-bold mb-6">Welcome to Coding School</h2>
+    <p class="text-lg mb-6">
+        Free coding tutorials for JavaScript, Python, HTML, and CSS. No registration required - learn at your own pace!
+    </p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        <a href="{% url 'language_overview' 'py' %}" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+            <h3 class="text-xl font-bold text-blue-600 mb-2">Python</h3>
+            <p>Learn Python programming from basics to advanced concepts.</p>
+        </a>
+        <a href="{% url 'language_overview' 'js' %}" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+            <h3 class="text-xl font-bold text-yellow-500 mb-2">JavaScript</h3>
+            <p>Master JavaScript for frontend and backend development.</p>
+        </a>
+        <a href="{% url 'language_overview' 'html' %}" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+            <h3 class="text-xl font-bold text-orange-500 mb-2">HTML</h3>
+            <p>Build the structure of your web pages with HTML.</p>
+        </a>
+        <a href="{% url 'language_overview' 'css' %}" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+            <h3 class="text-xl font-bold text-blue-400 mb-2">CSS</h3>
+            <p>Style your websites with beautiful CSS designs.</p>
+        </a>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    {% for tutorial in featured_tutorials %}
+    <div class="tutorial-card featured-tutorial bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all">
+        <span class="tag-{{ tutorial.language }} inline-block px-3 py-1 rounded-full text-sm mb-3 transition-all">
+            {{ tutorial.get_language_display }}
+        </span>
+            <h3 class="text-xl font-bold mb-2">
+                <a href="{% url 'tutorial_detail' tutorial.slug %}" class="hover:underline">{{ tutorial.title }}</a>
+            </h3>
+            <p class="text-gray-600 mb-4">{{ tutorial.content|truncatewords:30 }}</p>
+            <a href="{% url 'tutorial_detail' tutorial.slug %}" class="text-blue-600 hover:underline">Read more →</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div>
+    <h2 class="text-2xl font-bold mb-6">Browse by Category</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {% for category in categories %}
+        <a href="{% url 'category_tutorials' category.slug %}" class="bg-white p-4 rounded-lg shadow hover:shadow-md transition text-center">
+            <h3 class="font-bold text-lg">{{ category.name }}</h3>
+            <p class="text-sm text-gray-600">{{ category.description|truncatewords:10 }}</p>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

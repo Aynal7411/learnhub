@@ -1,0 +1,78 @@
+<!-- templates/content/tutorial_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+{% if language %}{{ language_name }} Tutorials{% endif %}
+{% if category %} - {{ category.name }}{% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="mb-8">
+    <h1 class="text-3xl font-bold mb-4">
+        {% if language %}
+        {{ language_name }} Tutorials
+        {% else %}
+        All Tutorials
+        {% endif %}
+        {% if category %}
+        in {{ category.name }}
+        {% endif %}
+    </h1>
+    
+    {% if language or category %}
+    <a href="{% url 'tutorial_list' %}" class="text-blue-600 hover:underline">← Back to all tutorials</a>
+    {% endif %}
+</div>
+
+<div class="space-y-6">
+    {% for tutorial in page_obj %}
+    <article class="bg-white p-6 rounded-lg shadow-md">
+        <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm mb-3">
+            {{ tutorial.get_language_display }}
+        </span>
+        <h2 class="text-2xl font-bold mb-3">
+            <a href="{% url 'tutorial_detail' tutorial.slug %}" class="hover:underline">{{ tutorial.title }}</a>
+        </h2>
+        <div class="prose max-w-none mb-4">
+            {{ tutorial.content|truncatewords_html:50 }}
+        </div>
+        <div class="flex justify-between items-center">
+            <a href="{% url 'tutorial_detail' tutorial.slug %}" class="text-blue-600 hover:underline">Read full tutorial →</a>
+            <span class="text-sm text-gray-500">{{ tutorial.created_at|date:"M d, Y" }}</span>
+        </div>
+    </article>
+    {% empty %}
+    <div class="bg-white p-6 rounded-lg shadow-md text-center">
+        <p class="text-lg">No tutorials found.</p>
+    </div>
+    {% endfor %}
+</div>
+
+{% if page_obj.has_other_pages %}
+<div class="mt-8 flex justify-center">
+    <nav class="inline-flex rounded-md shadow">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}" class="px-3 py-2 rounded-l-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+            Previous
+        </a>
+        {% endif %}
+        
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <span class="px-3 py-2 border border-gray-300 bg-blue-500 text-white">{{ num }}</span>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a href="?page={{ num }}" class="px-3 py-2 border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+            {{ num }}
+        </a>
+        {% endif %}
+        {% endfor %}
+        
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}" class="px-3 py-2 rounded-r-md border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">
+            Next
+        </a>
+        {% endif %}
+    </nav>
+</div>
+{% endif %}
+{% endblock %}
