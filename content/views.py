@@ -50,3 +50,5 @@ def language_overview(request, language):
         'categories': categories,
         'tutorial_count': tutorials.count(),
     })
+def about_us(request):
+    return render(request, 'about_us.html')
